@@ -1,0 +1,6 @@
+2025-05-21 16:34:17 - INFO - Number of unique protein-coding genes in gencode: 19797
+2025-05-21 16:37:02 - INFO - Original GTEx data dimensions: (7862, 60499)
+2025-05-21 16:37:02 - INFO - Filtered GTEx data dimensions: (7862, 19798)
+2025-05-21 16:38:58 - INFO - Successfully saved filtered protein-coding genes data with gene names
+2025-05-21 16:38:58 - INFO - Successfully saved ENSG ID list
+2025-05-21 16:38:58 - INFO - Successfully saved gene name list

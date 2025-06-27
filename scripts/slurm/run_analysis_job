@@ -1,0 +1,9 @@
+2025-06-24 14:19:05,698 - INFO - Loading model and data...
+2025-06-24 14:21:00,108 - INFO - Generating embeddings...
+2025-06-24 14:30:06,677 - INFO - 
+Analysis Summary:
+2025-06-24 14:30:06,679 - INFO - Number of samples: 28449
+2025-06-24 14:30:06,679 - INFO - Number of genes: 19797
+2025-06-24 14:30:06,679 - INFO - Embedding dimension: 19797
+2025-06-24 14:30:06,679 - INFO - Creating t-SNE visualization...
+2025-06-24 14:30:56,457 - INFO - Analysis completed. Check data/gene_embeddings.csv for the embeddings.

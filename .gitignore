@@ -1,0 +1,118 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Data files (excluding essential preprocessing files)
+data/*.csv
+data/*.npy
+data/*.gtf
+data/*.png
+data/*.json
+data/gtex_RSEM_gene_tpm*
+data/encode.txt
+data/celltype_*
+data/pseudobulk_*
+data/processed_*
+data/weighted_*
+data/new_*
+data/embeddings_*
+data/gene_embeddings.*
+data/clustering_quality.png
+data/latent_*
+data/reconstruction_*
+
+# Keep essential preprocessing files
+!data/ensg_coding_genes.txt
+!data/gene_names.txt
+!data/common_gene.txt
+!data/.gitkeep
+
+# Model checkpoints and outputs
+models/*.pth
+checkpoints/*.pth
+checkpoints/*.pkl
+checkpoints/*.pt
+
+# Training outputs
+training_plots/
+training_plots/*.png
+training_plots/*.pdf
+logs/*.log
+logs/*.txt
+*.log
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+vae_env/
+
+# IDE and editors
+.vscode/
+.idea/
+.cursor/
+*.swp
+*.swo
+*~
+.spyderproject
+.spyproject
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# SLURM job outputs
+slurm-*.out
+*.out
+slurm-*.err
+*.err
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+
+# Configuration files with sensitive data
+config/local_config.py
+config/secrets.py
+.env
+.env.local
+
+# Large output files
+*.hdf5
+*.h5
+*.mat 

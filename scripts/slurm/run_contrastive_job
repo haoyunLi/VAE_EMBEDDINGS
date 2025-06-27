@@ -1,0 +1,81 @@
+2025-06-24 14:47:57,727 - INFO - Loading model and data...
+2025-06-24 14:49:50,795 - INFO - Model loaded successfully with latent dimension: 19797
+2025-06-24 14:49:59,044 - INFO - Loading and preprocessing data...
+2025-06-24 14:51:55,603 - INFO - Found 981 common donors between pseudobulk and celltype data
+2025-06-24 14:55:00,196 - INFO - Created dataset with 981 donor groups
+2025-06-24 14:55:00,222 - INFO - Data loaded and preprocessed successfully
+2025-06-24 14:55:00,230 - INFO - Starting training...
+2025-06-24 14:55:16,843 - INFO - Epoch 1/200, Average Loss: 6.9151
+2025-06-24 14:55:55,731 - INFO - Epoch 2/200, Average Loss: 6.9043
+2025-06-24 14:56:34,994 - INFO - Epoch 3/200, Average Loss: 6.9043
+2025-06-24 14:56:50,772 - INFO - Epoch 4/200, Average Loss: 6.9043
+2025-06-24 14:57:06,597 - INFO - Epoch 5/200, Average Loss: 6.9043
+2025-06-24 14:57:45,748 - INFO - Epoch 6/200, Average Loss: 6.9037
+2025-06-24 14:58:24,270 - INFO - Epoch 7/200, Average Loss: 6.8960
+2025-06-24 14:59:03,436 - INFO - Epoch 8/200, Average Loss: 6.9023
+2025-06-24 14:59:19,110 - INFO - Epoch 9/200, Average Loss: 6.8996
+2025-06-24 14:59:35,060 - INFO - Epoch 10/200, Average Loss: 6.8883
+2025-06-24 15:00:37,915 - INFO - Epoch 11/200, Average Loss: 6.8797
+2025-06-24 15:01:16,063 - INFO - Epoch 12/200, Average Loss: 6.8706
+2025-06-24 15:01:55,691 - INFO - Epoch 13/200, Average Loss: 6.8261
+2025-06-24 15:02:35,503 - INFO - Epoch 14/200, Average Loss: 6.8667
+2025-06-24 15:02:51,878 - INFO - Epoch 15/200, Average Loss: 6.8313
+2025-06-24 15:03:31,124 - INFO - Epoch 16/200, Average Loss: 6.7917
+2025-06-24 15:04:09,283 - INFO - Epoch 17/200, Average Loss: 6.8630
+2025-06-24 15:04:24,984 - INFO - Epoch 18/200, Average Loss: 6.8240
+2025-06-24 15:04:40,603 - INFO - Epoch 19/200, Average Loss: 6.7902
+2025-06-24 15:05:19,707 - INFO - Epoch 20/200, Average Loss: 6.8168
+2025-06-24 15:05:59,188 - INFO - Epoch 21/200, Average Loss: 6.7919
+2025-06-24 15:06:14,733 - INFO - Epoch 22/200, Average Loss: 6.7384
+2025-06-24 15:06:52,379 - INFO - Epoch 23/200, Average Loss: 6.8101
+2025-06-24 15:07:07,932 - INFO - Epoch 24/200, Average Loss: 6.7813
+2025-06-24 15:07:23,249 - INFO - Epoch 25/200, Average Loss: 6.7193
+2025-06-24 15:08:25,233 - INFO - Epoch 26/200, Average Loss: 6.6731
+2025-06-24 15:09:02,895 - INFO - Epoch 27/200, Average Loss: 6.6416
+2025-06-24 15:09:41,575 - INFO - Epoch 28/200, Average Loss: 6.6740
+2025-06-24 15:09:56,929 - INFO - Epoch 29/200, Average Loss: 6.6998
+2025-06-24 15:10:12,311 - INFO - Epoch 30/200, Average Loss: 6.6652
+2025-06-24 15:10:50,856 - INFO - Epoch 31/200, Average Loss: 6.6610
+2025-06-24 15:11:06,417 - INFO - Epoch 32/200, Average Loss: 6.6003
+2025-06-24 15:11:44,681 - INFO - Epoch 33/200, Average Loss: 6.6014
+2025-06-24 15:11:59,976 - INFO - Epoch 34/200, Average Loss: 6.5770
+2025-06-24 15:12:38,609 - INFO - Epoch 35/200, Average Loss: 6.6310
+2025-06-24 15:13:17,902 - INFO - Epoch 36/200, Average Loss: 6.6108
+2025-06-24 15:13:33,571 - INFO - Epoch 37/200, Average Loss: 6.5908
+2025-06-24 15:13:49,342 - INFO - Epoch 38/200, Average Loss: 6.6208
+2025-06-24 15:14:05,127 - INFO - Epoch 39/200, Average Loss: 6.6080
+2025-06-24 15:14:20,664 - INFO - Epoch 40/200, Average Loss: 6.6202
+2025-06-24 15:14:59,661 - INFO - Epoch 41/200, Average Loss: 6.5883
+2025-06-24 15:15:15,221 - INFO - Epoch 42/200, Average Loss: 6.5257
+2025-06-24 15:15:53,122 - INFO - Epoch 43/200, Average Loss: 6.6145
+2025-06-24 15:16:08,601 - INFO - Epoch 44/200, Average Loss: 6.6219
+2025-06-24 15:16:24,138 - INFO - Epoch 45/200, Average Loss: 6.5919
+2025-06-24 15:17:03,360 - INFO - Epoch 46/200, Average Loss: 6.5904
+2025-06-24 15:17:18,746 - INFO - Epoch 47/200, Average Loss: 6.6123
+2025-06-24 15:17:34,326 - INFO - Epoch 48/200, Average Loss: 6.5683
+2025-06-24 15:17:49,858 - INFO - Epoch 49/200, Average Loss: 6.5498
+2025-06-24 15:18:05,327 - INFO - Epoch 50/200, Average Loss: 6.5520
+2025-06-24 15:18:44,855 - INFO - Epoch 51/200, Average Loss: 6.5715
+2025-06-24 15:19:00,220 - INFO - Epoch 52/200, Average Loss: 6.5182
+2025-06-24 15:19:38,340 - INFO - Epoch 53/200, Average Loss: 6.5479
+2025-06-24 15:19:53,597 - INFO - Epoch 54/200, Average Loss: 6.5213
+2025-06-24 15:20:09,092 - INFO - Epoch 55/200, Average Loss: 6.5213
+2025-06-24 15:20:47,387 - INFO - Epoch 56/200, Average Loss: 6.5404
+2025-06-24 15:21:02,544 - INFO - Epoch 57/200, Average Loss: 6.5552
+2025-06-24 15:21:17,985 - INFO - Epoch 58/200, Average Loss: 6.5307
+2025-06-24 15:21:33,438 - INFO - Epoch 59/200, Average Loss: 6.5294
+2025-06-24 15:21:48,748 - INFO - Epoch 60/200, Average Loss: 6.6032
+2025-06-24 15:22:27,426 - INFO - Epoch 61/200, Average Loss: 6.5999
+2025-06-24 15:22:42,797 - INFO - Epoch 62/200, Average Loss: 6.5874
+2025-06-24 15:22:58,233 - INFO - Epoch 63/200, Average Loss: 6.5463
+2025-06-24 15:23:13,610 - INFO - Epoch 64/200, Average Loss: 6.5369
+2025-06-24 15:23:29,006 - INFO - Epoch 65/200, Average Loss: 6.5881
+2025-06-24 15:24:08,118 - INFO - Epoch 66/200, Average Loss: 6.5505
+2025-06-24 15:24:23,479 - INFO - Epoch 67/200, Average Loss: 6.6303
+2025-06-24 15:24:38,948 - INFO - Epoch 68/200, Average Loss: 6.5692
+2025-06-24 15:24:54,287 - INFO - Epoch 69/200, Average Loss: 6.5265
+2025-06-24 15:25:09,730 - INFO - Epoch 70/200, Average Loss: 6.5581
+2025-06-24 15:25:48,666 - INFO - Epoch 71/200, Average Loss: 6.5526
+2025-06-24 15:26:04,041 - INFO - Epoch 72/200, Average Loss: 6.5610
+2025-06-24 15:26:04,061 - INFO - Early stopping triggered after 72 epochs
+2025-06-24 15:26:04,194 - INFO - Training completed successfully!

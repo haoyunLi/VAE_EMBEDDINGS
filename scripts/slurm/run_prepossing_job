@@ -1,0 +1,6 @@
+Warning: 17507 genes in pseudobulk data are not in common genes list
+Note: 835 genes in common list are not in pseudobulk data
+These genes will be added with zero expression values
+Gene IDs are identical between common gene list and processed data
+Gene order is identical between common gene list and processed data
+Processed data saved to data/processed_new_pseudobulk_expression.csv

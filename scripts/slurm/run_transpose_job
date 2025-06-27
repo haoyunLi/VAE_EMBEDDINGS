@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/projects/illinois/vetmed/cb/kwang222/Haoyun_Li/VAE embeddings/prepossing.py", line 110, in <module>
+    processed_data = process_pseudobulk_data(pseudobulk_data_path, common_genes_path)
+  File "/projects/illinois/vetmed/cb/kwang222/Haoyun_Li/VAE embeddings/prepossing.py", line 55, in process_pseudobulk_data
+    common_genes = load_common_genes(common_genes_path)
+  File "/projects/illinois/vetmed/cb/kwang222/Haoyun_Li/VAE embeddings/prepossing.py", line 11, in load_common_genes
+    with open(common_genes_path, "r") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'data/common_gene_id.txt'

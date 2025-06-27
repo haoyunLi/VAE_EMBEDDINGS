@@ -1,0 +1,43 @@
+2025-06-02 10:45:28 - INFO - Loading existing celltype matrix data...
+2025-06-02 10:45:36 - INFO - Loaded matrix with shape: (29, 981, 36469)
+2025-06-02 10:45:36 - INFO - Number of cell types: 29
+2025-06-02 10:45:36 - INFO - Number of donors: 981
+2025-06-02 10:45:36 - INFO - Number of genes: 36469
+2025-06-02 10:45:36 - INFO - Generating random cell type percentages...
+2025-06-02 10:45:36 - INFO - Creating new pseudobulk data...
+2025-06-02 10:45:37 - INFO - Saving results...
+2025-06-02 10:46:22 - INFO - Random data metadata saved to data/random_data_metadata.json
+2025-06-02 10:46:22 - INFO - New pseudobulk shape: (981, 36469)
+2025-06-02 10:46:22 - INFO - Random percentages saved to data/new_celltype_percentages.csv
+2025-06-02 10:46:22 - INFO - Random seed used: 42
+2025-06-02 10:46:22 - INFO - 
+Example random percentages for first donor:
+CD14-low, CD16-positive monocyte                         0.019450
+CD14-positive monocyte                                   0.124764
+CD16-negative, CD56-bright natural killer cell, human    0.054577
+CD4-positive, alpha-beta T cell                          0.037840
+CD4-positive, alpha-beta cytotoxic T cell                0.007031
+CD8-positive, alpha-beta T cell                          0.007029
+central memory CD4-positive, alpha-beta T cell           0.002480
+central memory CD8-positive, alpha-beta T cell           0.083362
+conventional dendritic cell                              0.038094
+dendritic cell                                           0.051033
+double negative thymocyte                                0.000862
+effector memory CD4-positive, alpha-beta T cell          0.145216
+effector memory CD8-positive, alpha-beta T cell          0.074044
+erythrocyte                                              0.009893
+gamma-delta T cell                                       0.008318
+hematopoietic precursor cell                             0.008398
+innate lymphoid cell                                     0.015036
+memory B cell                                            0.030835
+mucosal invariant T cell                                 0.023441
+naive B cell                                             0.014267
+naive thymus-derived CD4-positive, alpha-beta T cell     0.039225
+naive thymus-derived CD8-positive, alpha-beta T cell     0.006227
+natural killer cell                                      0.014321
+peripheral blood mononuclear cell                        0.018912
+plasmablast                                              0.025239
+plasmacytoid dendritic cell                              0.063745
+platelet                                                 0.009232
+regulatory T cell                                        0.029927
+transitional stage B cell                                0.037200
