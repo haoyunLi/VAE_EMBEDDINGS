@@ -2,7 +2,7 @@
 
 A comprehensive Variational Autoencoder (VAE) implementation for learning latent representations of high-dimensional gene expression data from GTEx dataset.
 
-## 🧬 Project Overview
+## Project Overview
 
 This project implements a sophisticated VAE architecture specifically designed for gene expression data analysis, featuring:
 
@@ -12,7 +12,7 @@ This project implements a sophisticated VAE architecture specifically designed f
 - **Comprehensive evaluation metrics** and visualization tools
 - **Contrastive learning** extensions for improved embeddings
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 VAE_embeddings/
@@ -59,7 +59,7 @@ VAE_embeddings/
 └── README.md                    # This file
 ```
 
-## 🔧 Installation
+## Installation
 
 1. **Clone the repository:**
 ```bash
@@ -83,7 +83,7 @@ pip install -r requirements.txt
 python setup.py develop
 ```
 
-## 📋 File Descriptions
+## File Descriptions
 
 ### Core Models
 - **`src/models/vae_model.py`**: Main VAE architecture with ELU activations, batch normalization, and dropout
@@ -121,7 +121,7 @@ All SLURM job scripts are organized in `scripts/slurm/`:
 - **`data/gene_names.txt`**: Gene name mapping file
 - **`data/common_gene.txt`**: Common gene identifiers across datasets
 
-## 🚀 Usage
+## Usage
 
 ### 1. Using the Main Entry Point
 ```bash
@@ -157,7 +157,7 @@ sbatch scripts/slurm/run_training.sbatch
 sbatch scripts/slurm/run_analyze.sbatch
 ```
 
-## ⚙️ Key Features
+## Key Features
 
 ### Advanced VAE Architecture
 - **Deep encoder/decoder**: 5-layer architecture with gradual dimensionality reduction
@@ -177,7 +177,7 @@ sbatch scripts/slurm/run_analyze.sbatch
 - **Clustering quality**: Silhouette score and calinski-harabasz index
 - **Gene similarity**: Correlation analysis in embedding space
 
-## 📊 Model Configuration
+## Model Configuration
 
 The model configuration is centralized in `config/train_config.py`:
 
@@ -204,7 +204,7 @@ beta_vae_style = True                       # Use beta-VAE style annealing
 cycle_length = 40                           # Annealing cycle length
 ```
 
-## 📈 Results
+## Results
 
 The trained VAE produces:
 - **Gene embeddings**: 19,797-dimensional latent representations
@@ -212,46 +212,10 @@ The trained VAE produces:
 - **Biological relevance**: Embeddings capture gene functional relationships
 - **Visualization**: 2D/3D projections via PCA, UMAP, t-SNE
 
-## 🔬 Data Requirements
+## Data Requirements
 
 - **Input**: Log-transformed gene expression matrix (samples × genes)
 - **Format**: CSV with numeric values only
 - **Preprocessing**: StandardScaler normalization applied automatically
 - **Size**: Handles high-dimensional data (19K+ genes, 17K+ samples)
 - **Essential files**: Gene identifier files must be present in `data/` directory
-
-## 🐛 Troubleshooting
-
-### Common Issues
-1. **CUDA out of memory**: Reduce batch_size in `config/train_config.py`
-2. **Convergence issues**: Adjust KL annealing parameters in configuration
-3. **Poor reconstruction**: Check data preprocessing and scaling
-4. **Missing gene files**: Ensure `ensg_coding_genes.txt` and related files are in `data/`
-
-### Performance Tips
-- Use GPU when available (automatically detected)
-- Monitor training with logging and checkpoints
-- Adjust KL weight for better reconstruction/regularization balance
-- Use the centralized configuration in `config/train_config.py` for consistent experiments
-
-## 📚 References
-
-- [Beta-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework](https://openreview.net/forum?id=Sy2fzU9gl)
-- [Understanding disentangling in β-VAE](https://arxiv.org/abs/1804.03599)
-- [GTEx Consortium Dataset](https://gtexportal.org/)
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📧 Contact
-
-For questions or collaboration opportunities, please open an issue or contact the maintainers. 

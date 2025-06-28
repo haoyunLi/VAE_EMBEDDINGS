@@ -2,7 +2,10 @@ import torch
 import pandas as pd
 import numpy as np
 import logging
-from vae_model import VAE
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
+from models.vae_model import VAE
 import os
 
 def load_model_and_data(model_path, data_path):

@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import logging
-from vae_model import VAE
+from ..models.vae_model import VAE
 import matplotlib.pyplot as plt
 from sklearn.manifold import TSNE
 from sklearn.decomposition import PCA

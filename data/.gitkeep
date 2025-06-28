@@ -1,3 +1,0 @@
-# This file ensures the data directory is tracked by git
-# Add your gene expression data files here
-# Note: Large data files are excluded by .gitignore 

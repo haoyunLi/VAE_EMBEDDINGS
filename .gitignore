@@ -59,6 +59,7 @@ checkpoints/*.pt
 # Training outputs
 training_plots/
 training_plots/*.png
+!training_plots/final_loss_curves.png
 training_plots/*.pdf
 logs/*.log
 logs/*.txt

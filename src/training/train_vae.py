@@ -10,16 +10,24 @@ from ..models.vae_model import VAE
 from ..evaluation.evaluate_vae import run_evaluation, plot_loss_curves
 import logging
 import os
+import sys
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s',
-    handlers=[
-        logging.FileHandler('vae_training.log'),
-        logging.StreamHandler()
-    ]
-)
+# Add config directory to path for importing configuration
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+from config.train_config import default_config
+
+# Configure logging - will be updated with config in main()
+def setup_logging(config):
+    """Setup logging with configuration."""
+    log_file = os.path.join(config.logging.log_dir, 'vae_training.log')
+    logging.basicConfig(
+        level=getattr(logging, config.logging.log_level),
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_file),
+            logging.StreamHandler()
+        ]
+    )
 
 class EarlyStopping:
     def __init__(self, patience=5, min_delta=0):
@@ -414,31 +422,45 @@ def evaluate_with_masking(model, test_loader, device, mask_ratio=0.2, kl_weight=
     }
 
 def main():
-    # Hyperparameters
-    input_file = 'data/filtered_gtex_coding_genes.csv'
-    batch_size = 128  
-    num_epochs = 300 
-    learning_rate = 1e-4
-    hidden_dims = [4096, 2048, 1024, 512, 256]  # More gradual reduction for large input
-    latent_dim = 19797  # Match number of genes in filtered data (after index column is dropped)
-    test_size = 0.2
-    patience = 30  # Increased patience for more epochs
-    target_loss = 0.01
+    # Load configuration
+    config = default_config
     
-    # KL annealing parameters 
-    kl_target_weight = 0.1      # Final KL weight (for non-beta-VAE modes)
-    kl_start_epoch = 0          # Start annealing from epoch 0
-    kl_end_epoch = 50           # Reach target weight by epoch 50 (for non-cyclic)
-    kl_annealing_type = 'cosine'  # BEST for gene expression: smooth transitions
-    kl_cyclic = False           # Using beta-VAE style instead of cyclic
-    kl_cycle_length = 40        # Cycle length: allows multiple exploration phases
-    kl_cycle_decay = 0.7        # Decay factor: gradually reduce cycle intensity
-    kl_beta_vae_style = True    # RECOMMENDED: beta-VAE style (ramp to 1.0, decay per cycle)
+    # Create necessary directories
+    config.create_directories()
     
-    # Dynamic masking parameters 
-    dynamic_masking = True      # Using dynamic masking for multiple sparsity levels
-    mask_min = 0.05            # Minimum mask ratio (5%)
-    mask_max = 0.25            # Maximum mask ratio (25%)
+    # Setup logging
+    setup_logging(config)
+    
+    # Print configuration summary
+    print(config.summary())
+    logging.info("Starting VAE training with configuration:")
+    logging.info(config.summary())
+    
+    # Extract configuration values
+    input_file = config.data.input_file
+    batch_size = config.data.batch_size
+    num_epochs = config.training.num_epochs
+    learning_rate = config.training.learning_rate
+    hidden_dims = config.model.hidden_dims
+    latent_dim = config.model.latent_dim
+    test_size = config.data.test_size
+    patience = config.training.patience
+    target_loss = config.training.target_loss
+    
+    # KL annealing parameters from config
+    kl_target_weight = config.kl_annealing.target_weight
+    kl_start_epoch = config.kl_annealing.start_epoch
+    kl_end_epoch = config.kl_annealing.end_epoch
+    kl_annealing_type = config.kl_annealing.annealing_type
+    kl_cyclic = config.kl_annealing.cyclic
+    kl_cycle_length = config.kl_annealing.cycle_length
+    kl_cycle_decay = config.kl_annealing.cycle_decay
+    kl_beta_vae_style = config.kl_annealing.beta_vae_style
+    
+    # Dynamic masking parameters from config
+    dynamic_masking = config.masking.dynamic_masking
+    mask_min = config.masking.mask_min
+    mask_max = config.masking.mask_max
     
     # Log GPU memory before training
     if torch.cuda.is_available():
@@ -470,8 +492,8 @@ def main():
         test_size=test_size
     )
     
-    # Initialize model
-    model = VAE(input_dim=input_dim, hidden_dims=hidden_dims, latent_dim=latent_dim, dropout_rate=0.3)
+    # Initialize model with config dropout rate
+    model = VAE(input_dim=input_dim, hidden_dims=hidden_dims, latent_dim=latent_dim, dropout_rate=config.model.dropout_rate)
     
     # Train model
     history, best_model = train_vae(
@@ -547,6 +569,101 @@ def main():
     # Log final GPU memory usage
     if torch.cuda.is_available():
         logging.info(f"Final GPU Memory Allocated: {torch.cuda.memory_allocated(0) / 1024**3:.2f} GB")
+    
+    logging.info("Training completed and model saved!")
+
+def train_only():
+    """Train VAE with minimal setup - expects preprocessed data to be available."""
+    # Load configuration
+    config = default_config
+    
+    # Create necessary directories
+    config.create_directories()
+    
+    # Setup logging
+    setup_logging(config)
+    
+    print("VAE Training Only Mode - No Preprocessing")
+    logging.info("Starting VAE training only mode (no data preprocessing)")
+    
+    # Check if preprocessed data files exist
+    data_path = config.data.input_file
+    if not os.path.exists(data_path):
+        raise FileNotFoundError(f"Data file not found: {data_path}")
+    
+    logging.info(f"Using data file: {data_path}")
+    
+    # Extract configuration values
+    batch_size = config.data.batch_size
+    num_epochs = config.training.num_epochs
+    learning_rate = config.training.learning_rate
+    hidden_dims = config.model.hidden_dims
+    latent_dim = config.model.latent_dim
+    test_size = config.data.test_size
+    patience = config.training.patience
+    target_loss = config.training.target_loss
+    
+    # KL annealing parameters from config
+    kl_target_weight = config.kl_annealing.target_weight
+    kl_start_epoch = config.kl_annealing.start_epoch
+    kl_end_epoch = config.kl_annealing.end_epoch
+    kl_annealing_type = config.kl_annealing.annealing_type
+    kl_cyclic = config.kl_annealing.cyclic
+    kl_cycle_length = config.kl_annealing.cycle_length
+    kl_cycle_decay = config.kl_annealing.cycle_decay
+    kl_beta_vae_style = config.kl_annealing.beta_vae_style
+    
+    # Dynamic masking parameters from config
+    dynamic_masking = config.masking.dynamic_masking
+    mask_min = config.masking.mask_min
+    mask_max = config.masking.mask_max
+    
+    logging.info("Configuration loaded - proceeding with training only")
+    
+    # Load data (minimal preprocessing)
+    train_loader, test_loader, scaler, input_dim = load_and_preprocess_data(
+        data_path, 
+        batch_size, 
+        test_size=test_size
+    )
+    
+    # Initialize model with config dropout rate
+    model = VAE(input_dim=input_dim, hidden_dims=hidden_dims, latent_dim=latent_dim, dropout_rate=config.model.dropout_rate)
+    
+    # Train model
+    history, best_model = train_vae(
+        model, 
+        train_loader, 
+        test_loader, 
+        num_epochs, 
+        learning_rate,
+        patience=patience,
+        scaler=scaler,
+        input_dim=input_dim,
+        hidden_dims=hidden_dims,
+        latent_dim=latent_dim,
+        target_loss=target_loss,
+        kl_target_weight=kl_target_weight,
+        kl_start_epoch=kl_start_epoch,
+        kl_end_epoch=kl_end_epoch,
+        kl_annealing_type=kl_annealing_type,
+        kl_cyclic=kl_cyclic,
+        kl_cycle_length=kl_cycle_length,
+        kl_cycle_decay=kl_cycle_decay,
+        kl_beta_vae_style=kl_beta_vae_style,
+        dynamic_masking=dynamic_masking,
+        mask_min=mask_min,
+        mask_max=mask_max
+    )
+    
+    # Save final model
+    torch.save({
+        'model_state_dict': best_model.state_dict(),
+        'scaler': scaler,
+        'input_dim': input_dim,
+        'hidden_dims': hidden_dims,
+        'latent_dim': latent_dim,
+    }, 'vae_model.pth')
     
     logging.info("Training completed and model saved!")
 

@@ -20,17 +20,17 @@ opencv-python>=4.5.0
 # Progress Bars
 tqdm>=4.62.0
 
-# Jupyter (if using notebooks)
+# Jupyter 
 jupyter>=1.0.0
 jupyterlab>=3.0.0
 
-# Bioinformatics (if needed)
+# Bioinformatics 
 biopython>=1.79
 
-# Optional: GPU support (uncomment if using CUDA)
-# torch-cuda>=11.8
+# GPU support 
+torch-cuda>=11.8
 
-# Development tools (optional)
+# Development tools 
 pytest>=6.0.0
 black>=22.0.0
 flake8>=4.0.0

@@ -11,7 +11,10 @@ from scipy.stats import pearsonr
 from scipy.spatial.distance import pdist, squareform
 import umap
 import logging
-from vae_model import VAE
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'src'))
+from models.vae_model import VAE
 from sklearn.preprocessing import StandardScaler
 
 # Setup logging
@@ -22,7 +25,7 @@ logging.basicConfig(
 
 def load_model_and_data(model_path, data_path):
     """Load the trained model and original data."""
-    # Load model with weights_only=False since this is our own checkpoint
+    # Load model with weights_only=False since this is own checkpoint
     checkpoint = torch.load(model_path, weights_only=False)
     model = VAE(
         input_dim=checkpoint['input_dim'],

@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 import logging
-from vae_model import VAE
+from ..models.vae_model import VAE
 import matplotlib.pyplot as plt
 from torch.utils.data import DataLoader, TensorDataset
 import pandas as pd
