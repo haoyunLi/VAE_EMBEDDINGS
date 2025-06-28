@@ -9,7 +9,13 @@
 #SBATCH --gres=gpu:A40:1
 #SBATCH --output=run_analysis_job    
      
-cd "${SLURM_SUBMIT_DIR}"
+# Navigate to project root directory using absolute path
+PROJECT_ROOT="/taiga/illinois/vetmed/cb/kwang222/Haoyun_Li/VAE_embeddings"
+cd "${PROJECT_ROOT}"
+
+# Verify we're in the right directory
+echo "Working directory: $(pwd)"
+echo "Contents: $(ls -la run.py 2>/dev/null || echo 'run.py not found')"
 
 module load anaconda3
 source $(conda info --base)/etc/profile.d/conda.sh
@@ -17,4 +23,4 @@ source $(conda info --base)/etc/profile.d/conda.sh
 conda activate vae_env
 
 # Run script
-python analyze_embeddings.py
+python run.py --mode analyze

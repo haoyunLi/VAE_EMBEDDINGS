@@ -9,7 +9,9 @@
 #SBATCH --gres=gpu:A40:1
 #SBATCH --output=run_newpseudobulk_job  
      
-cd "${SLURM_SUBMIT_DIR}"
+# Navigate to project root directory using absolute path
+PROJECT_ROOT="/taiga/illinois/vetmed/cb/kwang222/Haoyun_Li/VAE_embeddings"
+cd "${PROJECT_ROOT}"
 
 module load anaconda3
 source $(conda info --base)/etc/profile.d/conda.sh
@@ -17,4 +19,4 @@ source $(conda info --base)/etc/profile.d/conda.sh
 conda activate vae_env
 
 # Run script
-python new_pseudobulk.py
+python src/utils/new_pseudobulk.py

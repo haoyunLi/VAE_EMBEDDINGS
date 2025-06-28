@@ -1,9 +1,21 @@
-2025-06-24 14:19:05,698 - INFO - Loading model and data...
-2025-06-24 14:21:00,108 - INFO - Generating embeddings...
-2025-06-24 14:30:06,677 - INFO - 
+Working directory: /taiga/illinois/vetmed/cb/kwang222/Haoyun_Li/VAE_embeddings
+Contents: -rw-rw----+ 1 haoyunli kwang222-ic 3907 Jun 28 12:02 run.py
+2025-06-28 12:38:32,435 - INFO - Loading model and data...
+2025-06-28 12:39:06,806 - INFO - Generating embeddings...
+2025-06-28 12:41:38,546 - INFO - 
 Analysis Summary:
-2025-06-24 14:30:06,679 - INFO - Number of samples: 28449
-2025-06-24 14:30:06,679 - INFO - Number of genes: 19797
-2025-06-24 14:30:06,679 - INFO - Embedding dimension: 19797
-2025-06-24 14:30:06,679 - INFO - Creating t-SNE visualization...
-2025-06-24 14:30:56,457 - INFO - Analysis completed. Check data/gene_embeddings.csv for the embeddings.
+2025-06-28 12:41:38,547 - INFO - Number of samples: 7862
+2025-06-28 12:41:38,547 - INFO - Number of genes: 19797
+2025-06-28 12:41:38,547 - INFO - Embedding dimension: 19797
+2025-06-28 12:41:38,547 - INFO - Creating t-SNE visualization...
+2025-06-28 12:41:51,088 - INFO - Analysis completed. Check data/ for all results:
+2025-06-28 12:41:51,088 - INFO -   - celltype_specific_gene_embeddings.csv: Main embeddings file
+2025-06-28 12:41:51,088 - INFO -   - embeddings_tsne.png: t-SNE visualization
+2025-06-28 12:41:51,088 - INFO -   - reconstruction_error_distribution.png: Reconstruction analysis
+2025-06-28 12:41:51,089 - INFO -   - latent_space_distances.png: Latent space analysis
+VAE Gene Expression Analysis Pipeline
+Mode: analyze
+Data: data/filtered_gtex_coding_genes.csv
+--------------------------------------------------
+ Analyzing embeddings...
+ Pipeline completed successfully!
