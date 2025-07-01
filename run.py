@@ -72,7 +72,7 @@ def main():
     # Create output directory if it doesn't exist
     Path(args.output_dir).mkdir(parents=True, exist_ok=True)
     
-    print(f"🧬 VAE Gene Expression Analysis Pipeline")
+    print(f" VAE Gene Expression Analysis Pipeline")
     print(f"Mode: {args.mode}")
     print(f"Data: {args.data_path}")
     print("-" * 50)
@@ -104,15 +104,15 @@ def main():
             preprocess_main()
             
     except ImportError as e:
-        print(f"❌ Import Error: {e}")
+        print(f" Import Error: {e}")
         print("Make sure all dependencies are installed: pip install -r requirements.txt")
         sys.exit(1)
         
     except Exception as e:
-        print(f"❌ Error during execution: {e}")
+        print(f" Error during execution: {e}")
         sys.exit(1)
     
-    print("✅ Pipeline completed successfully!")
+    print(" Pipeline completed successfully!")
 
 if __name__ == "__main__":
     main() 
