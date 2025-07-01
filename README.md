@@ -29,7 +29,7 @@ VAE_embeddings/
 │   └── utils/                   # Utility functions
 │       ├── prepossing.py        # Data preprocessing
 │       ├── transpose_data.py    # Data transformation utilities
-│       ├── encode.py            # Encoding utilities
+│       ├── coding_gene.py       # Extract coding genes from data
 │       └── new_pseudobulk.py    # Pseudobulk generation
 ├── scripts/                     # Execution scripts
 │   ├── slurm/                   # SLURM job scripts and batch files
@@ -98,7 +98,7 @@ python setup.py develop
 ### Data Processing Utilities
 - **`src/utils/prepossing.py`**: Data preprocessing pipeline for GTEx gene expression data
 - **`src/utils/transpose_data.py`**: Matrix transposition utilities for data format conversion
-- **`src/utils/encode.py`**: Encoding utilities for generating embeddings from trained models
+- **`src/utils/coding_gene.py`**: Extract protein-coding genes from GTEx data using gencode annotations
 - **`src/utils/new_pseudobulk.py`**: Pseudobulk data generation utilities
 
 ### Evaluation & Analysis
@@ -113,7 +113,7 @@ All SLURM job scripts are organized in `scripts/slurm/`:
 - **`run_embeddings.sbatch`**: Embedding generation
 - **`run_analyze.sbatch`**: Analysis and visualization
 - **`run_preprocessing.sbatch`**: Data preprocessing
-- **`run_encode.sbatch`**: Model encoding
+- **`run_encode.sbatch`**: Coding gene extraction
 - **`run_transpose.sbatch`**: Data transposition
 
 ### Essential Data Files
@@ -138,23 +138,9 @@ python src/training/train_vae.py
 python src/training/contrastive_vae_training.py
 ```
 
-### 4. Generate Embeddings
-```bash
-python src/utils/encode.py
-```
-
-### 5. Analyze Results
+### 4. Analyze Results
 ```bash
 python scripts/analysis/analyze_embeddings.py
-```
-
-### 6. Using SLURM (on HPC clusters)
-```bash
-# Submit training job
-sbatch scripts/slurm/run_training.sbatch
-
-# Submit analysis job
-sbatch scripts/slurm/run_analyze.sbatch
 ```
 
 ## Key Features

@@ -10,7 +10,6 @@ Provides a unified interface to run different components of the pipeline:
 
 Usage:
     python run.py --mode train                    # Train VAE (includes data loading)
-    python run.py --mode train_only               # Train VAE only (no preprocessing)
     python run.py --mode train_contrastive        # Train contrastive VAE
     python run.py --mode evaluate                 # Evaluate trained model
     python run.py --mode analyze                  # Analyze embeddings
@@ -35,7 +34,7 @@ def main():
     
     parser.add_argument(
         '--mode', 
-        choices=['train', 'train_only', 'train_contrastive', 'evaluate', 'analyze', 'preprocess'],
+        choices=['train', 'train_contrastive', 'evaluate', 'analyze', 'preprocess'],
         required=True,
         help='Mode of operation'
     )
@@ -73,21 +72,16 @@ def main():
     # Create output directory if it doesn't exist
     Path(args.output_dir).mkdir(parents=True, exist_ok=True)
     
-    print(f"VAE Gene Expression Analysis Pipeline")
+    print(f"🧬 VAE Gene Expression Analysis Pipeline")
     print(f"Mode: {args.mode}")
     print(f"Data: {args.data_path}")
     print("-" * 50)
     
     try:
         if args.mode == 'train':
-            print(" Starting VAE training (with data loading)...")
+            print(" Starting VAE training...")
             from src.training.train_vae import main as train_main
             train_main()
-            
-        elif args.mode == 'train_only':
-            print(" Starting VAE training only (no preprocessing)...")
-            from src.training.train_vae import train_only
-            train_only()
             
         elif args.mode == 'train_contrastive':
             print(" Starting contrastive VAE training...")
@@ -110,15 +104,15 @@ def main():
             preprocess_main()
             
     except ImportError as e:
-        print(f" Import Error: {e}")
+        print(f"❌ Import Error: {e}")
         print("Make sure all dependencies are installed: pip install -r requirements.txt")
         sys.exit(1)
         
     except Exception as e:
-        print(f" Error during execution: {e}")
+        print(f"❌ Error during execution: {e}")
         sys.exit(1)
     
-    print(" Pipeline completed successfully!")
+    print("✅ Pipeline completed successfully!")
 
 if __name__ == "__main__":
     main() 

@@ -190,10 +190,13 @@ def analyze_clustering(embeddings, n_clusters_range=range(2, 11)):
     return silhouette_scores
 
 def main():
-    # Load model and data
+    # Load model and data from config
+    sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..'))
+    from config.train_config import default_config
+    
+    config = default_config
     model_path = 'checkpoints/vae_best.pth'  
-    #data_path = 'data/processed_weighted_pseudobulk_expression.csv'
-    data_path = 'data/processed_celltype_specific_2d_matrix.csv'
+    data_path = config.data.input_file  # Use config data path
     
     logging.info("Loading model and data...")
     model, data, scaler = load_model_and_data(model_path, data_path)
@@ -209,8 +212,8 @@ def main():
                                columns=gene_names if gene_names is not None else None)
     
     # Save embeddings
-    #embeddings_df.to_csv('data/weighted_pseudobulk_gene_embeddings.csv')
-    embeddings_df.to_csv('data/celltype_specific_gene_embeddings.csv')
+    embeddings_df.to_csv('data/weighted_pseudobulk_gene_embeddings.csv')
+    #embeddings_df.to_csv('data/celltype_specific_gene_embeddings.csv')
     
     # Save embeddings with metadata
     embeddings_dict = {
@@ -225,8 +228,8 @@ def main():
             'embedding_dim': embeddings.shape[1]
         }
     }
-    #np.save('data/weighted_pseudobulk_gene_embeddings.npy', embeddings_dict)
-    np.save('data/celltype_specific_gene_embeddings.npy', embeddings_dict)
+    np.save('data/weighted_pseudobulk_gene_embeddings.npy', embeddings_dict)
+    #np.save('data/celltype_specific_gene_embeddings.npy', embeddings_dict)
     
     # Generate summary report
     logging.info("\nAnalysis Summary:")
@@ -238,7 +241,11 @@ def main():
     logging.info("Creating t-SNE visualization...")
     visualize_embeddings(embeddings, method='tsne')
     
-    logging.info("Analysis completed. Check data/gene_embeddings.csv for the embeddings.")
+    logging.info("Analysis completed. Check data/ for all results:")
+    logging.info("  - celltype_specific_gene_embeddings.csv: Main embeddings file")
+    logging.info("  - embeddings_tsne.png: t-SNE visualization") 
+    logging.info("  - reconstruction_error_distribution.png: Reconstruction analysis")
+    logging.info("  - latent_space_distances.png: Latent space analysis")
 
 if __name__ == "__main__":
     main() 

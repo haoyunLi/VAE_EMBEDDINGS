@@ -23,4 +23,4 @@ source $(conda info --base)/etc/profile.d/conda.sh
 conda activate vae_env
 
 # Run script using the unified entry point (training only, no preprocessing)
-python run.py --mode train_only
+python run.py --mode train    
