@@ -117,3 +117,4 @@ config/secrets.py
 *.hdf5
 *.h5
 *.mat *.pth
+*.pth
