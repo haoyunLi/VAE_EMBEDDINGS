@@ -21,7 +21,7 @@ class DataConfig:
     # Path to the input CSV file containing filtered GTEx coding genes data
     input_file: str = 'data/filtered_gtex_coding_genes.csv'
     # Number of samples processed together in each training batch
-    batch_size: int = 128
+    batch_size: int = 64
     # Fraction of data reserved for testing (20% test, 80% train)
     test_size: float = 0.2
     # Number of worker processes for data loading (parallel processing)
@@ -35,10 +35,9 @@ class ModelConfig:
     """VAE model architecture configuration."""
     # Architecture parameters optimized for gene expression data
     hidden_dims: List[int] = None  # [4096, 2048, 1024, 512, 256]
-    # Dimensionality of the latent space - matches number of genes
-    latent_dim: int = 19797  # Match number of genes
+    latent_dim: int = 64  
     # Dropout probability for regularization during training
-    dropout_rate: float = 0.3
+    dropout_rate: float = 0.35
     
     # Method called after dataclass initialization
     def __post_init__(self):
@@ -58,13 +57,13 @@ class TrainingConfig:
     # Learning rate for the optimizer (Adam)
     learning_rate: float = 1e-4
     # Number of epochs to wait without improvement before early stopping
-    patience: int = 30  # Early stopping patience
+    patience: int = 60 # Early stopping patience
     # Target loss value - training can stop early if reached
-    target_loss: float = 0.01
+    target_loss: float = 0.001
     
     # Optimizer settings
     # L2 regularization strength to prevent overfitting
-    weight_decay: float = 1e-5
+    weight_decay: float = 1e-4
     # Factor by which learning rate is reduced when plateau detected
     lr_scheduler_factor: float = 0.5
     # Number of epochs to wait before reducing learning rate
@@ -78,23 +77,23 @@ class KLAnnealingConfig:
     """KL annealing configuration - optimized for gene expression data."""
     # KL annealing parameters
     # Final weight for KL divergence term in loss function
-    target_weight: float = 0.1  # Final KL weight (for non-beta-VAE modes)
+    target_weight: float = 1.0  # Final KL weight (for non-beta-VAE modes)
     # Epoch to start KL annealing from
     start_epoch: int = 0  # Start annealing from epoch 0
     # Epoch by which target weight should be reached
-    end_epoch: int = 50  # Reach target weight by epoch 50
+    end_epoch: int = 100  # Reach target weight by epoch 50
     # Type of annealing schedule: 'linear', 'cosine', or 'exponential'
     annealing_type: str = 'cosine'  # Best for gene expression: smooth transitions
     
     # Beta-VAE style configuration 
     # Whether to use cyclic annealing (periods of high/low KL weight)
-    cyclic: bool = False  # Using beta-VAE style instead of cyclic
+    cyclic: bool = True  # Using beta-VAE style instead of cyclic
     # Length of each cycle in epochs (if cyclic is True)
-    cycle_length: int = 40  # Cycle length: allows multiple exploration phases
+    cycle_length: int = 10  # Cycle length: allows multiple exploration phases
     # Factor by which cycle amplitude decreases over time
-    cycle_decay: float = 0.7  # Decay factor: gradually reduce cycle intensity
+    cycle_decay: float = 0.9  # Decay factor: gradually reduce cycle intensity
     # Whether to use beta-VAE style annealing (smooth, non-cyclic)
-    beta_vae_style: bool = True  # Recommended: beta-VAE style annealing
+    beta_vae_style: bool = False  
 
 
 @dataclass  # Configuration for dynamic input masking during training
@@ -121,7 +120,7 @@ class LoggingConfig:
     # Logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL
     log_level: str = 'INFO'
     # Save training plots every N epochs
-    save_every: int = 5  # Save plots every N epochs
+    save_every: int = 20  # Save plots every N epochs
     
     # Whether to only save the best model (based on validation loss)
     save_best_only: bool = False

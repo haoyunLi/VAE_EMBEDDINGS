@@ -170,7 +170,7 @@ The model configuration is centralized in `config/train_config.py`:
 ### Architecture Parameters
 ```python
 hidden_dims = [4096, 2048, 1024, 512, 256]  # Encoder/decoder layers
-latent_dim = 19797                           # Latent space dimension (matches gene count)
+latent_dim = 19797                          # Latent space dimension (matches gene count)
 dropout_rate = 0.3                          # Dropout probability
 ```
 

@@ -75,7 +75,7 @@ def generate_embeddings(model, data, scaler):
     
     return mu.cpu().numpy(), gene_names, sample_names
 
-def analyze_reconstruction_quality(model, data, scaler):
+def analyze_reconstruction_quality(model, data, scaler, base_dir=None):
     """Analyze how well the model reconstructs the input data."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = model.to(device)
@@ -104,11 +104,18 @@ def analyze_reconstruction_quality(model, data, scaler):
     plt.title('Distribution of Reconstruction Error')
     plt.xlabel('Mean Squared Error')
     plt.ylabel('Count')
-    plt.savefig('data/reconstruction_error_distribution.png')
+    
+    # Use base_dir if provided, otherwise use default
+    if base_dir:
+        save_path = os.path.join(base_dir, 'data/reconstruction_error_distribution.png')
+    else:
+        save_path = 'data/reconstruction_error_distribution.png'
+    
+    plt.savefig(save_path)
     plt.close()    
     return recon_error
 
-def analyze_latent_space(embeddings):
+def analyze_latent_space(embeddings, base_dir=None):
     """Analyze the structure of the latent space."""
     # Calculate pairwise distances
     distances = pdist(embeddings)
@@ -119,7 +126,14 @@ def analyze_latent_space(embeddings):
     plt.title('Distribution of Pairwise Distances in Latent Space')
     plt.xlabel('Euclidean Distance')
     plt.ylabel('Count')
-    plt.savefig('data/latent_space_distances.png')
+    
+    # Use base_dir if provided, otherwise use default
+    if base_dir:
+        save_path = os.path.join(base_dir, 'data/latent_space_distances.png')
+    else:
+        save_path = 'data/latent_space_distances.png'
+    
+    plt.savefig(save_path)
     plt.close()
     
     # Calculate and plot correlation between latent dimensions
@@ -127,12 +141,19 @@ def analyze_latent_space(embeddings):
     plt.figure(figsize=(12, 10))
     sns.heatmap(corr_matrix, cmap='coolwarm', center=0)
     plt.title('Correlation Between Latent Dimensions')
-    plt.savefig('data/latent_dimensions_correlation.png')
+    
+    # Use base_dir if provided, otherwise use default
+    if base_dir:
+        save_path = os.path.join(base_dir, 'data/latent_dimensions_correlation.png')
+    else:
+        save_path = 'data/latent_dimensions_correlation.png'
+    
+    plt.savefig(save_path)
     plt.close()
     
     return corr_matrix
 
-def visualize_embeddings(embeddings, method='tsne', n_components=2):
+def visualize_embeddings(embeddings, method='tsne', n_components=2, base_dir=None):
     """Visualize embeddings using dimensionality reduction."""
     if method == 'tsne':
         reducer = TSNE(n_components=n_components, random_state=42)
@@ -163,12 +184,18 @@ def visualize_embeddings(embeddings, method='tsne', n_components=2):
     # Adjust layout to prevent label cutoff
     plt.tight_layout()
     
-    plt.savefig(f'data/embeddings_{method}.png', dpi=300, bbox_inches='tight')
+    # Use base_dir if provided, otherwise use default
+    if base_dir:
+        save_path = os.path.join(base_dir, f'data/embeddings_{method}.png')
+    else:
+        save_path = f'data/embeddings_{method}.png'
+    
+    plt.savefig(save_path, dpi=300, bbox_inches='tight')
     plt.close()
     
     return reduced_embeddings
 
-def analyze_clustering(embeddings, n_clusters_range=range(2, 11)): 
+def analyze_clustering(embeddings, n_clusters_range=range(2, 11), base_dir=None): 
     """Analyze clustering quality for different numbers of clusters."""
     silhouette_scores = []
     
@@ -184,7 +211,14 @@ def analyze_clustering(embeddings, n_clusters_range=range(2, 11)):
     plt.xlabel('Number of Clusters')
     plt.ylabel('Silhouette Score')
     plt.title('Clustering Quality Analysis')
-    plt.savefig('data/clustering_quality.png')
+    
+    # Use base_dir if provided, otherwise use default
+    if base_dir:
+        save_path = os.path.join(base_dir, 'data/clustering_quality.png')
+    else:
+        save_path = 'data/clustering_quality.png'
+    
+    plt.savefig(save_path)
     plt.close()
     
     return silhouette_scores
@@ -195,8 +229,10 @@ def main():
     from config.train_config import default_config
     
     config = default_config
-    model_path = 'checkpoints/vae_best.pth'  
-    data_path = config.data.input_file  # Use config data path
+    # Fix paths since script is in subfolder
+    base_dir = os.path.join(os.path.dirname(__file__), '..', '..')
+    model_path = os.path.join(base_dir, 'checkpoints/vae_best.pth')  
+    data_path = os.path.join(base_dir, config.data.input_file)  # Use config data path
     
     logging.info("Loading model and data...")
     model, data, scaler = load_model_and_data(model_path, data_path)
@@ -206,46 +242,65 @@ def main():
     embeddings, gene_names, sample_names = generate_embeddings(model, data, scaler)
     
     # Create DataFrame with embeddings
-    # Each row is a sample, each column is a gene
+    # Each row is a sample, each column is a latent dimension
+    # Since latent_dim=64, we'll create column names for the 64 dimensions
+    latent_dim_names = [f'latent_dim_{i}' for i in range(embeddings.shape[1])]
     embeddings_df = pd.DataFrame(embeddings, 
                                index=sample_names if sample_names is not None else None,
-                               columns=gene_names if gene_names is not None else None)
+                               columns=latent_dim_names)
     
     # Save embeddings
-    embeddings_df.to_csv('data/weighted_pseudobulk_gene_embeddings.csv')
-    #embeddings_df.to_csv('data/celltype_specific_gene_embeddings.csv')
+    embeddings_df.to_csv(os.path.join(base_dir, 'data/weighted_pseudobulk_gene_embeddings.csv'))
+    #embeddings_df.to_csv(os.path.join(base_dir, 'data/celltype_specific_gene_embeddings.csv'))
     
     # Save embeddings with metadata
     embeddings_dict = {
         'data': {
             'embeddings': embeddings,
             'gene_names': gene_names,
-            'sample_names': sample_names
+            'sample_names': sample_names,
+            'latent_dim_names': latent_dim_names
         },
         'metadata': {
             'n_samples': len(embeddings),
             'n_genes': len(gene_names) if gene_names is not None else None,
-            'embedding_dim': embeddings.shape[1]
+            'embedding_dim': embeddings.shape[1],
+            'latent_dim': embeddings.shape[1]
         }
     }
-    np.save('data/weighted_pseudobulk_gene_embeddings.npy', embeddings_dict)
-    #np.save('data/celltype_specific_gene_embeddings.npy', embeddings_dict)
+    np.save(os.path.join(base_dir, 'data/weighted_pseudobulk_gene_embeddings.npy'), embeddings_dict)
+    #np.save(os.path.join(base_dir, 'data/celltype_specific_gene_embeddings.npy'), embeddings_dict)
     
     # Generate summary report
     logging.info("\nAnalysis Summary:")
     logging.info(f"Number of samples: {len(embeddings)}")
     logging.info(f"Number of genes: {len(gene_names) if gene_names is not None else 'unknown'}")
-    logging.info(f"Embedding dimension: {embeddings.shape[1]}")
+    logging.info(f"Latent dimension: {embeddings.shape[1]}")
+    logging.info(f"Input dimension: {len(gene_names) if gene_names is not None else 'unknown'}")
+    
+    # Analyze reconstruction quality
+    logging.info("Analyzing reconstruction quality...")
+    analyze_reconstruction_quality(model, data, scaler, base_dir=base_dir)
+    
+    # Analyze latent space structure
+    logging.info("Analyzing latent space structure...")
+    analyze_latent_space(embeddings, base_dir=base_dir)
+    
+    # Analyze clustering quality
+    logging.info("Analyzing clustering quality...")
+    analyze_clustering(embeddings, base_dir=base_dir)
     
     # Visualize embeddings using t-SNE
     logging.info("Creating t-SNE visualization...")
-    visualize_embeddings(embeddings, method='tsne')
+    visualize_embeddings(embeddings, method='tsne', base_dir=base_dir)
     
     logging.info("Analysis completed. Check data/ for all results:")
-    logging.info("  - celltype_specific_gene_embeddings.csv: Main embeddings file")
+    logging.info("  - weighted_pseudobulk_gene_embeddings.csv: Main embeddings file")
     logging.info("  - embeddings_tsne.png: t-SNE visualization") 
     logging.info("  - reconstruction_error_distribution.png: Reconstruction analysis")
     logging.info("  - latent_space_distances.png: Latent space analysis")
+    logging.info("  - latent_dimensions_correlation.png: Latent dimensions correlation")
+    logging.info("  - clustering_quality.png: Clustering analysis")
 
 if __name__ == "__main__":
     main() 
