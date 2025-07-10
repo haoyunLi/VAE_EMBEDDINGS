@@ -117,7 +117,7 @@ class LoggingConfig:
     # Directory to save training plots and visualizations
     plot_dir: str = 'training_plots'
 
-    # Logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL
+    # Logging level: DEBUG, INFO, WARNING, ERROR, CRITICAL 
     log_level: str = 'INFO'
     # Save training plots every N epochs
     save_every: int = 20  # Save plots every N epochs

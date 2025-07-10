@@ -284,7 +284,7 @@ def main():
     
     # Analyze latent space structure
     logging.info("Analyzing latent space structure...")
-    analyze_latent_space(embeddings, base_dir=base_dir)
+    analyze_latent_space(embeddings, base_dir=base_dir) 
     
     # Analyze clustering quality
     logging.info("Analyzing clustering quality...")
